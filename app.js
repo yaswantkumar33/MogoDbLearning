@@ -18,14 +18,22 @@ app.get('/', async (req, res) => {
     const cursor = collection.find({});
     let employees = await cursor.toArray();
     let message = "";
-    let book_id, edit_book
+    let book_id, edit_book, delete_id
     // console.log(req.query.book_id)
     if (req.query.book_id) {
         book_id = req.query.book_id;
         edit_book = await collection.findOne({ _id: new ObjectId(book_id) })
 
-    } else {
-        // console.log("edit if not found ")
+    }
+    if (req.query.delete_id) {
+
+        delete_id = req.query.delete_id;
+        try {
+            await collection.deleteOne({ "_id": new ObjectId(delete_id) });
+            return res.redirect('/?status=3')
+        } catch (err) {
+            console.log(err)
+        }
     }
     switch (req.query.status) {
         case "1":
@@ -36,6 +44,9 @@ app.get('/', async (req, res) => {
             break;
         case "2":
             message = "Updated sucessfully"
+            break;
+        case "3":
+            message = "deleted sucessfully"
             break;
         default:
             break;

@@ -1,18 +1,26 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MongoDb CRUD</title>
-</head>
-<body>
+  </head>
+
+  <body>
     <h1>Mongo Db Crud Example </h1>
     {{message}}
     <ul>
 
-        {{#each employees}}
-        <li>{{this.title}} -{{this.author}} <a href="/?book_id={{this._id}}">Edit</a></li>
-        {{/each}}
+      {{#each employees}}
+        <li>{{this.title}}
+          -{{this.author}}
+          <a href="/?book_id={{this._id}}">Edit</a>
+          <a
+            href="/?delete_id={{this._id}}"
+            onclick="return confirm('Are You Sure You Want To Delete This Book !!?')"
+          >Delete</a>
+        </li>
+      {{/each}}
     </ul>
     <p>Book id {{book_id}}</p>
 
@@ -20,20 +28,21 @@
       <form action="/update_book/{{book_id}}" method="post">
         <h3>Update Book !</h3>
         <label for="title">title</label>
-        <input type="text" name="title" value="{{edit_book.title}}">
+        <input type="text" name="title" value="{{edit_book.title}}" />
         <label for="Author">Author</label>
-        <input type="text" name="author" value="{{edit_book.author}}">
-        <input type="submit" value="submit">
-    </form>
+        <input type="text" name="author" value="{{edit_book.author}}" />
+        <input type="submit" value="submit" />
+      </form>
     {{else}}
-        <form action="/store_book" method="post">
+      <form action="/store_book" method="post">
         <h3>Create Book !</h3>
         <label for="title">title</label>
-        <input type="text" name="title">
+        <input type="text" name="title" />
         <label for="Author">Author</label>
-        <input type="text" name="author">
-        <input type="submit" value="submit">
-    </form>
+        <input type="text" name="author" />
+        <input type="submit" value="submit" />
+      </form>
     {{/if}}
-</body>
+  </body>
+
 </html>
